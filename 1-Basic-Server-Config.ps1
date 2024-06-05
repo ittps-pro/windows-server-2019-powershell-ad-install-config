@@ -29,16 +29,23 @@ $computername = 'SERVERDC1'
 #- Settings -
 #------------
 
+
+function SetupVPN {
+
+Add-VPNConnection -Name VPN -ServerAddress $server
+
+}
+
 # Set Network
-Try{
-    New-NetIPAddress -IPAddress $ethipaddress -PrefixLength $ethprefixlength -DefaultGateway $ethdefaultgw -InterfaceAlias $ethalias -ErrorAction Stop | Out-Null
-    Set-DNSClientServerAddress -ServerAddresses $ethdns -InterfaceAlias $ethalias -ErrorAction Stop
-    Write-Host "IP Address successfully set to $($ethipaddress), subnet $($ethprefixlength), default gateway $($ethdefaultgw) and DNS Server $($ethdns)" -ForegroundColor Green
-   }
-Catch{
-     Write-Warning -Message $("Failed to apply network settings. Error: "+ $_.Exception.Message)
-     Break;
-     }
+# Try{
+#     # New-NetIPAddress -IPAddress $ethipaddress -PrefixLength $ethprefixlength -DefaultGateway $ethdefaultgw -InterfaceAlias $ethalias -ErrorAction Stop | Out-Null
+#     # Set-DNSClientServerAddress -ServerAddresses $ethdns -InterfaceAlias $ethalias -ErrorAction Stop
+#     # Write-Host "IP Address successfully set to $($ethipaddress), subnet $($ethprefixlength), default gateway $($ethdefaultgw) and DNS Server $($ethdns)" -ForegroundColor Green
+#    }
+# Catch{
+#      Write-Warning -Message $("Failed to apply network settings. Error: "+ $_.Exception.Message)
+#      Break;
+#      }
 
 # Set RDP
 Try{
